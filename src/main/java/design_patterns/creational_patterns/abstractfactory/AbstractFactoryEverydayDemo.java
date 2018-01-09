@@ -1,4 +1,4 @@
-package design_patterns.creational_patterns.abstract_factory;
+package design_patterns.creational_patterns.abstractfactory;
 
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
