@@ -1,0 +1,40 @@
+package design_patterns.structural_patterns.adapter.custom_example;
+
+public class EmployeeAdapterLdap implements Employee {
+
+    private EmployeeLdap instance;
+
+    public EmployeeAdapterLdap(EmployeeLdap instance) {
+        this.instance = instance;
+    }
+
+    @Override
+    public String getId() {
+        return instance.getCn();
+    }
+
+    @Override
+    public String getFirstName() {
+        return instance.getGivenName();
+    }
+
+    @Override
+    public String getLastName() {
+        return instance.getSurname();
+    }
+
+    @Override
+    public String getEmail() {
+        return instance.getMail();
+    }
+
+    @Override
+    public String toString() {
+        return "EmployeeLdap{" +
+                "id='" + this.instance.getCn() + '\'' +
+                ", firstName='" + this.instance.getGivenName() + '\'' +
+                ", lastName='" + this.instance.getSurname() + '\'' +
+                ", email='" + this.instance.getMail() + '\'' +
+                '}';
+    }
+}
