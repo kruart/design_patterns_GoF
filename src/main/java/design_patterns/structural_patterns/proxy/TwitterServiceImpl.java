@@ -1,18 +1,21 @@
 package design_patterns.structural_patterns.proxy;
 
+//https://gist.github.com/bh5k/73a82d64e35e780150d1
+
 import twitter4j.*;
 import twitter4j.conf.ConfigurationBuilder;
 
 import java.util.List;
 
-public class TwitterExample {
+public class TwitterServiceImpl implements TwitterService {
 
-    private static final String TWITTER_CONSUMER_KEY = "NcoaBPbSKxkCJhbDyqzjQKVjr";
-    private static final String TWITTER_SECRET_KEY = "23V1G25UTDjeWZTNU3maGfeLrVigSPK6JnJHDIBNDRR5FC9cHS";
-    private static final String TWITTER_ACCESS_TOKEN = "15022283-LBY37j2wmYiqhtPNixqVJv0B84FZEroyxvmsjaywl";
-    private static final String TWITTER_ACCESS_TOKEN_SECRET = "bmclfpFMqKnmzoqztnSm41WxXalkW5K2tUdnXVxIAG1Es";
+    private static final String TWITTER_CONSUMER_KEY = "p6BBcuQ8iExdE1me7VUvDVIQY";
+    private static final String TWITTER_SECRET_KEY = "WYBf6Sz9CQ2MgKaPQxErWIASASf4KlHGraUoI29JJoZ6eZWaBC";
+    private static final String TWITTER_ACCESS_TOKEN = "15022283-85fcsL6kflLJIWJ074jQgv2C4COosDMENukPNpCF3";
+    private static final String TWITTER_ACCESS_TOKEN_SECRET = "j7fjGTnkqJZyldI5ZR8EYvZfIYgeBTtRC37ZpZjyDnIYG";
 
-    public static void main (String args[]) {
+    @Override
+    public String getTimeline(String screenName) {
 
         ConfigurationBuilder cb = new ConfigurationBuilder();
         cb.setDebugEnabled(true)
@@ -22,22 +25,29 @@ public class TwitterExample {
                 .setOAuthAccessTokenSecret(TWITTER_ACCESS_TOKEN_SECRET);
         TwitterFactory tf = new TwitterFactory(cb.build());
         Twitter twitter = tf.getInstance();
+        StringBuilder builder = new StringBuilder();
         try {
-            Query query = new Query("bh5k");
+            Query query = new Query(screenName);
             QueryResult result;
             do {
                 result = twitter.search(query);
                 List<Status> tweets = result.getTweets();
                 for (Status tweet : tweets) {
-                    System.out.println("@" + tweet.getUser().getScreenName() + " - " + tweet.getText());
+                    builder.append("@" + tweet.getUser().getScreenName() + " - " + tweet.getText());
+                    builder.append("\n");
                 }
             } while ((query = result.nextQuery()) != null);
-            System.exit(0);
+
         } catch (TwitterException te) {
             te.printStackTrace();
             System.out.println("Failed to search tweets: " + te.getMessage());
-            System.exit(-1);
         }
+        return builder.toString();
     }
 
+    @Override
+    public void postToTimeline(String screenName, String message) {
+        //we aren't going to allow this
+        System.out.println(message);
+    }
 }
