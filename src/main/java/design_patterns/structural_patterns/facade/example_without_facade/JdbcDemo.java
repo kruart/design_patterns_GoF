@@ -1,6 +1,8 @@
 package design_patterns.structural_patterns.facade.example_without_facade;
 
-import design_patterns.creational_patterns.singleton.DbSingleton;
+
+
+import design_patterns.structural_patterns.facade.DbSingleton;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
