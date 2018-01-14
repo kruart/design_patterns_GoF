@@ -1,9 +1,7 @@
 package design_patterns.behavioral_patterns.memento;
 
-import java.io.Serializable;
-
 //originator
-public class Employee implements Serializable {
+public class Employee {
 	
 	private String name;
 	private String address;
